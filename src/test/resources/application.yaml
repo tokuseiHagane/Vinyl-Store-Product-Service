@@ -2,8 +2,10 @@ spring:
   application:
     name: Product Service
   config:
-    import: ""
+    import: "optional:"
   cloud:
+    config:
+      enabled: false
     discovery:
       enabled: false
   datasource:
