@@ -1,15 +1,16 @@
 package ru.solomatin.vinylstore.productservice.controller;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.solomatin.vinylstore.productservice.dto.VinylDTO;
 import ru.solomatin.vinylstore.productservice.model.Vinyl;
 import ru.solomatin.vinylstore.productservice.service.ProductService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
-@Controller
+@RestController
 @RequestMapping("/api/product")
 public class ProductController {
 
@@ -26,8 +27,26 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    @ResponseStatus(HttpStatus.OK)
     public List<Vinyl> getAllProducts() {
         return productService.getAllVinyl();
+    }
+
+    @GetMapping("/vinyl/{id}")
+    public Vinyl getProductById(@PathVariable String id) {
+        try {
+            return productService.getVinylById(id);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/vinyl/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProduct(@PathVariable String id) {
+        try {
+            productService.deleteVinylById(id);
+        } catch (NoSuchElementException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 }
