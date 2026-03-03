@@ -3,3 +3,14 @@ spring:
     name: Product Service
   config:
     import: optional:configserver:http://localhost:8888
+  datasource:
+    url: jdbc:postgresql://localhost:${POSTGRES_LOCAL_PORT:5432}/${POSTGRES_DB:products}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  flyway:
+    enabled: true

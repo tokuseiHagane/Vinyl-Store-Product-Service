@@ -1,7 +1,12 @@
 services:
-  mongodb:
-    container_name: mongo_db_product
-    image: mongo
+  postgres:
+    container_name: postgres_db_product
+    image: postgres:16
     env_file: ./.env
     ports:
-      - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
+      - ${POSTGRES_LOCAL_PORT}:${POSTGRES_DOCKER_PORT}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

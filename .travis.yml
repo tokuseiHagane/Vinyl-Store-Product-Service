@@ -1,9 +1,19 @@
 language: java
 jdk: openjdk21
+services:
+  - postgresql
+before_script:
+  - psql -c "CREATE DATABASE products;" -U postgres
+env:
+  global:
+    - POSTGRES_DB=products
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=""
+    - POSTGRES_LOCAL_PORT=5432
 script:
   - ./gradlew build
 after_success:
-  - ./gradlew sonarqube -Dsonar.projectKey=MikhailOk-creator_Vinyl-Store-Product-Service -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.projectVersion=1.0
+  - ./gradlew sonarqube -Dsonar.projectKey=tokuseHagane_Vinyl-Store-Product-Service -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.projectVersion=1.0
 cache:
   directories:
     - ~/.gradle
