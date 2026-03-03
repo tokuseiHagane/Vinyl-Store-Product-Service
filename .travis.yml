@@ -1,0 +1,11 @@
+language: java
+jdk: openjdk21
+script:
+  - ./gradlew build
+after_success:
+  - ./gradlew sonarqube -Dsonar.projectKey=MikhailOk-creator_Vinyl-Store-Product-Service -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.projectVersion=1.0
+cache:
+  directories:
+    - ~/.gradle
+notifications:
+  email: false
