@@ -56,12 +56,12 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
-      - name: SonarQube analysis
+      - name: SonarCloud analysis
         if: success()
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonarqube -Dsonar.projectKey=tokuseHagane_Vinyl-Store-Product-Service -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.projectVersion=1.0
+        run: ./gradlew sonar -Dsonar.projectKey=tokuseHagane_Vinyl-Store-Product-Service -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.projectVersion=1.0
 
   dependency-submission:
     runs-on: ubuntu-latest
