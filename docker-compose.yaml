@@ -1,0 +1,7 @@
+services:
+  mongodb:
+    container_name: mongo_db_product
+    image: mongo
+    env_file: ./.env
+    ports:
+      - $MONGODB_LOCAL_PORT:$MONGODB_DOCKER_PORT
